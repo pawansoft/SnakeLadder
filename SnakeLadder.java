@@ -8,14 +8,23 @@ public class SnakeLadder {
     final static int noPlay=1;
     final static int ladder=2;
     final static int snake=3;
-    static int userPosition=startPosition;
-
-    public static int getUserPosition() {
-        return userPosition;
+    static int user1Position=startPosition;
+    static int user2Position=startPosition;
+    static int numberOfThrownDice=0;
+    public static int getUser1Position() {
+        return user1Position;
     }
 
-    public static void setUserPosition(int userPosition) {
-        SnakeLadder.userPosition = userPosition;
+    public static void setUser1Position(int user1Position) {
+        SnakeLadder.user1Position = user1Position;
+    }
+
+    public static int getUser2Position() {
+        return user2Position;
+    }
+
+    public static void setUser2Position(int user2Position) {
+        SnakeLadder.user2Position = user2Position;
     }
 
     public static int rollDice()
@@ -29,41 +38,96 @@ public class SnakeLadder {
         int option=rn.nextInt(3)+1;
         return option;
     }
-    public static void main(String[] args) {
-        int numberOfThrownDice=0;
-        while ( getUserPosition() != winPoint)
-        {
+    public int player1()
+    {
             numberOfThrownDice=numberOfThrownDice+1;
             int numberOnDice=rollDice();
             int option= playerOption();
-            if ( getUserPosition() < 1)
+            if ( getUser1Position() < 1)
             {
-                setUserPosition(startPosition);
+                setUser1Position(startPosition);
             }
 
             if (option == noPlay)
             {
-                setUserPosition(getUserPosition());
+                setUser1Position(getUser1Position());
             }
             else if (option == ladder)
             {
-                if (getUserPosition()+rollDice() > 100)
+                if (getUser1Position()+rollDice() > 100)
                 {
-                    setUserPosition(getUserPosition());
+                    setUser1Position(getUser1Position());
                 }
                 else
                 {
-                    setUserPosition(getUserPosition()+rollDice());
+                    setUser1Position(getUser1Position()+rollDice());
                 }
 
             }
             else if(option == snake)
             {
-                setUserPosition(getUserPosition()-rollDice());
+                setUser1Position(getUser1Position()-rollDice());
             }
-            System.out.println(" Times of Dice Thrown : " + numberOfThrownDice + " Position of User :" +getUserPosition());
+            System.out.println(" Times of Dice Thrown : " + numberOfThrownDice + " Position of Player 1 :" +getUser1Position());
+        return user1Position;
+    }
+    public int player2()
+    {
+        numberOfThrownDice=numberOfThrownDice+1;
+        int numberOnDice=rollDice();
+        int option= playerOption();
+        if ( getUser2Position() < 1)
+        {
+            setUser2Position(startPosition);
         }
-        System.out.println("Total number of dice thrown by Player to Win :" +numberOfThrownDice);
+
+        if (option == noPlay)
+        {
+            setUser2Position(getUser2Position());
+        }
+        else if (option == ladder)
+        {
+            if (getUser2Position()+rollDice() > 100)
+            {
+                setUser2Position(getUser2Position());
+            }
+            else
+            {
+                setUser2Position(getUser2Position()+rollDice());
+            }
+
+        }
+        else if(option == snake)
+        {
+            setUser2Position(getUser2Position()-rollDice());
+        }
+        System.out.println(" Times of Dice Thrown : " + numberOfThrownDice + " Position of Player 2 :" +getUser2Position());
+        return user2Position;
+    }
+
+
+    public static void main(String[] args) {
+        SnakeLadder snakeLadder=new SnakeLadder();
+        while (true)
+        {
+            int player1Position=snakeLadder.player1();
+            int player2Position=snakeLadder.player2();
+            if (player1Position == 100)
+            {
+                System.out.println("player 1 Won the game ");
+                System.out.println("Total number of time thrown dice : " +numberOfThrownDice);
+                break;
+            }
+            else if (player2Position ==100)
+            {
+                System.out.println("player 2 won the game");
+                System.out.println("Total number of time thrown dice : " +numberOfThrownDice);
+                break;
+            }
+
+
+        }
+
     }
 }
 
