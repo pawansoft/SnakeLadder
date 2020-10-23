@@ -31,7 +31,7 @@ public class SnakeLadder {
     }
     public static void main(String[] args) {
 
-        while ( getUserPosition() <= winPoint)
+        while ( getUserPosition() != winPoint)
         {
             int numberOnDice=rollDice();
             int option= playerOption();
@@ -39,21 +39,29 @@ public class SnakeLadder {
             {
                 setUserPosition(startPosition);
             }
+
             if (option == noPlay)
             {
                 setUserPosition(getUserPosition());
             }
             else if (option == ladder)
             {
-                setUserPosition(getUserPosition()+rollDice());
+                if (getUserPosition()+rollDice() > 100)
+                {
+                    setUserPosition(getUserPosition());
+                }
+                else
+                {
+                    setUserPosition(getUserPosition()+rollDice());
+                }
+
             }
             else if(option == snake)
             {
                 setUserPosition(getUserPosition()-rollDice());
             }
-          
+            System.out.println(getUserPosition());
         }
-
     }
 }
 
