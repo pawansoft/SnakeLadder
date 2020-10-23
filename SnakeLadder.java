@@ -30,9 +30,10 @@ public class SnakeLadder {
         return option;
     }
     public static void main(String[] args) {
-
+        int numberOfThrownDice=0;
         while ( getUserPosition() != winPoint)
         {
+            numberOfThrownDice=numberOfThrownDice+1;
             int numberOnDice=rollDice();
             int option= playerOption();
             if ( getUserPosition() < 1)
@@ -60,8 +61,9 @@ public class SnakeLadder {
             {
                 setUserPosition(getUserPosition()-rollDice());
             }
-            System.out.println(getUserPosition());
+            System.out.println(" Times of Dice Thrown : " + numberOfThrownDice + " Position of User :" +getUserPosition());
         }
+        System.out.println("Total number of dice thrown by Player to Win :" +numberOfThrownDice);
     }
 }
 
