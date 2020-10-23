@@ -30,22 +30,30 @@ public class SnakeLadder {
         return option;
     }
     public static void main(String[] args) {
-        int numberOnDice=rollDice();
-        int option= playerOption();
 
-        if (option == noPlay)
+        while ( getUserPosition() <= winPoint)
         {
-            setUserPosition(getUserPosition());
+            int numberOnDice=rollDice();
+            int option= playerOption();
+            if ( getUserPosition() < 1)
+            {
+                setUserPosition(startPosition);
+            }
+            if (option == noPlay)
+            {
+                setUserPosition(getUserPosition());
+            }
+            else if (option == ladder)
+            {
+                setUserPosition(getUserPosition()+rollDice());
+            }
+            else if(option == snake)
+            {
+                setUserPosition(getUserPosition()-rollDice());
+            }
+          
         }
-        else if (option == ladder)
-        {
-            setUserPosition(getUserPosition()+rollDice());
-        }
-        else if(option == snake)
-        {
-            setUserPosition(getUserPosition()-rollDice());
-        }
-        System.out.println(getUserPosition());
+
     }
 }
 
